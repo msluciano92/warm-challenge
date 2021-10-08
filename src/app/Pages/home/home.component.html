@@ -1,4 +1,4 @@
-<p-table [value]="users" [lazy]="true" responsiveLayout="scroll"
+<p-table [value]="users" (onLazyLoad)="getData($event)" [lazy]="true" responsiveLayout="scroll"
     [paginator]="true" [rows]="10" [totalRecords]="25" [loading]="loading">
     <ng-template pTemplate="header">
         <tr>
@@ -10,10 +10,10 @@
     </ng-template>
     <ng-template pTemplate="body" let-user>
         <tr>
-            <td>{{user.name}}</td>
-            <td>{{user.username}}</td>
-            <td>{{user.email}}</td>
-            <td>{{user.website}}</td>
+            <td>{{user.albumId}}</td>
+            <td>{{user.thumbnailUrl}}</td>
+            <td>{{user.title}}</td>
+            <td>{{user.url}}</td>
         </tr>
     </ng-template>
 </p-table>

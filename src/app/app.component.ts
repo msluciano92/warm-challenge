@@ -11,7 +11,5 @@ export class AppComponent implements OnInit {
 
   constructor(private store: Store) {}
 
-  ngOnInit(): void {
-    // Should request data list here
-  }
+  ngOnInit(): void {}
 }
