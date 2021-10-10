@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { UsersService } from '../../Services/Users.service';
-
-// Import interfaces
-
-// Import methods (if it's needed)
+import { Store, select } from '@ngrx/store';
+import { loadUsers } from '../../Store/User/users.action';
+import { User } from '../../Models/User.model'; 
+import { getAllUsers } from '../../Store/User/users.selector';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -12,18 +11,24 @@ import { UsersService } from '../../Services/Users.service';
   styleUrls: ['./home.component.less'],
 })
 export class HomeComponent {
-  users: any = [];
-  loading: boolean = true;
-  val: any;
-  constructor(private store: Store, private usersService: UsersService) {}
+  users: User[] = [];
+  usersSubscription: any = new Observable();;
+  loading: boolean = false;
+  constructor(private store: Store) {}
+
+  ngOnInit() {
+    this.usersSubscription = this.store.pipe(select(getAllUsers))
+      .subscribe((users) => {
+        this.users = users;
+      });
+  }
+
+  ngOnDestroy() {
+    this.usersSubscription.unsubscribe();
+  }
 
   getData(event: any): void {
-    console.log(event);
     const { first, rows } = event; 
-    this.usersService.getUsers(first, rows)
-      .subscribe((users: any) => {
-        this.users = users;
-        this.loading = false;
-      });
+    this.store.dispatch(loadUsers({ first, rows }));
   }
 }
