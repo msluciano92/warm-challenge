@@ -4,8 +4,8 @@ import { createEntityAdapter, EntityState, EntityAdapter } from '@ngrx/entity';
 import { User } from '../../Models/User.model';
 
 export interface UserState extends EntityState<User> {
-  pages: number,
   users: User[],
+  total: number
 }
 
 export const adapter: EntityAdapter<User> = createEntityAdapter<User>();
@@ -18,6 +18,3 @@ export const userReducer = createReducer(
     return { ...state, ...action };
   }),
 );
-
-export const { selectAll, selectIds } = adapter.getSelectors();
-

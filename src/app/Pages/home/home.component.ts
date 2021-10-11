@@ -6,30 +6,33 @@ import { getAllUsers } from '../../Store/User/users.selector';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.less'],
+    selector: 'app-home',
+    templateUrl: './home.component.html',
 })
 export class HomeComponent {
-  users: User[] = [];
-  usersSubscription: any = new Observable();;
-  pages: number = 1;
-  constructor(private store: Store) {}
+    users: User[] = [];
+    usersSubscription: any = new Observable();
+    loading: boolean = true;
+    total: number = 0;
+    
+    constructor(private store: Store) {}
 
-  ngOnInit() {
-    this.usersSubscription = this.store.pipe(select(getAllUsers))
-      .subscribe((users) => {
-        this.users = users.users;
-        this.pages = users.pages;
-      });
-  }
+    ngOnInit() {
+        this.usersSubscription = this.store.pipe(select(getAllUsers))
+            .subscribe((users) => {
+              this.users = users.users;
+              this.total = users.total;
+              this.loading = false;
+            });
+    }
 
-  ngOnDestroy() {
-    this.usersSubscription.unsubscribe();
-  }
+    ngOnDestroy() {
+      this.usersSubscription.unsubscribe();
+    }
 
-  getData(event: any): void {
-    const { first, rows } = event; 
-    this.store.dispatch(loadUsers({ first, rows }));
-  }
+    getData(event: any): void {
+      const { first, rows } = event;
+      this.loading = true; 
+      this.store.dispatch(loadUsers({ first, rows }));
+    }
 }

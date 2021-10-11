@@ -1,5 +1,6 @@
 import { User } from '../../Models/User.model';
 import { createAction, props } from '@ngrx/store';
+import { UsersBackend } from '../../Models/UsersBackend.model';
 
 export const loadUsers = createAction(
   '[Users List] Load Users via Service',
@@ -8,7 +9,7 @@ export const loadUsers = createAction(
 
 export const usersLoaded = createAction(
   '[Users Effect] Users Loaded Successfully',
-  props<{users: User[], pages: number}>()
+  props<UsersBackend>()
 );
 
 export const userActionTypes = {

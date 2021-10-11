@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { userActionTypes } from './users.action';
 import { User } from '../../Models/User.model';
-
+import { UsersBackend } from '../../Models/UsersBackend.model';
 
 @Injectable()
 export class UsersEffects {
@@ -15,7 +15,7 @@ export class UsersEffects {
       exhaustMap((params) => {
           const { first, rows } = params;
           return this.usersService.getUsers(first, rows).pipe(
-            map((users: { pages: number, users: User[] }) => (userActionTypes.usersLoaded({ users: users.users, pages: users.pages }))),
+            map((response: UsersBackend) => (userActionTypes.usersLoaded({ ...response }))),
       )}),
     )
   );
