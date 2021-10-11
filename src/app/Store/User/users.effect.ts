@@ -15,9 +15,8 @@ export class UsersEffects {
       exhaustMap((params) => {
           const { first, rows } = params;
           return this.usersService.getUsers(first, rows).pipe(
-        map((users: User[]) => (userActionTypes.usersLoaded({ users }))),
+            map((users: { pages: number, users: User[] }) => (userActionTypes.usersLoaded({ users: users.users, pages: users.pages }))),
       )}),
-      map((users) => users),
     )
   );
 

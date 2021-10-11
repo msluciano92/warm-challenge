@@ -11,6 +11,8 @@ import { UsersEffects } from './Store/User/users.effect';
 import { EffectsModule } from '@ngrx/effects';
 
 import { TableModule } from 'primeng/table';
+import { BadgeModule } from 'primeng/badge';
+
 import { userReducer } from './Store/User/users.reducer';
 
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -24,6 +26,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     BrowserModule,
     AppRoutingModule,
     TableModule,
+    BadgeModule,
     HttpClientModule,
     StoreModule.forRoot({
       users: userReducer,

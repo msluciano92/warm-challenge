@@ -8,7 +8,7 @@ export const loadUsers = createAction(
 
 export const usersLoaded = createAction(
   '[Users Effect] Users Loaded Successfully',
-  props<{users: User[]}>()
+  props<{users: User[], pages: number}>()
 );
 
 export const userActionTypes = {

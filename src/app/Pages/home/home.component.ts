@@ -13,13 +13,14 @@ import { Observable } from 'rxjs';
 export class HomeComponent {
   users: User[] = [];
   usersSubscription: any = new Observable();;
-  loading: boolean = false;
+  pages: number = 1;
   constructor(private store: Store) {}
 
   ngOnInit() {
     this.usersSubscription = this.store.pipe(select(getAllUsers))
       .subscribe((users) => {
-        this.users = users;
+        this.users = users.users;
+        this.pages = users.pages;
       });
   }
 
