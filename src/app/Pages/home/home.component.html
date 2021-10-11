@@ -1,0 +1,6 @@
+<div class="main-table">
+    <div class="title">
+        <p-badge class="title" [value]="'WARM users'"></p-badge>
+    </div>
+    <users-table [total]="total" [users]="users" [loading]="loading" (onLazyLoad)="getData($event)"></users-table>
+</div>
